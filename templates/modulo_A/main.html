@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MyndTeks · Modulación de Programación de Equipo de Trabajo</title>
+<link rel="stylesheet" href="/css/main.css">
+</head>
+<body>
+
+<div class="mt-app">
+
+    <!-- ============================================================
+         TOP BAR · MyndTeks
+         ============================================================ -->
+    <header class="mt-topbar">
+        <div class="mt-brand">
+            <div class="mt-logo">
+                <span class="mt-logo-mark">M</span>
+                <span class="mt-logo-glow"></span>
+            </div>
+            <div class="mt-brand-text">
+                <span class="mt-brand-name">MyndTeks</span>
+                <span class="mt-brand-tag">Enterprise Solutions</span>
+            </div>
+            <div class="mt-divider-vert"></div>
+            <span class="mt-module-name">Modulación de Programación de Equipo de Trabajo</span>
+        </div>
+
+        <div class="mt-topbar-right">
+            <div class="mt-status-badge" id="statusIndicator">
+                <span class="dot"></span>
+                <span id="statusText">Operador 1</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- ============================================================
+         CUERPO · 2 COLUMNAS
+         ============================================================ -->
+    <div class="mt-body">
+
+        <!-- ---------- COLUMNA IZQUIERDA · CHAT ---------- -->
+        <div class="mt-chat-col">
+            <div class="mt-panel-head">
+                <div class="mt-panel-title">
+                    <span class="icon">◆</span>
+                    <span>Consola de Asistencia</span>
+                </div>
+                <span class="mt-panel-meta">Operador 1</span>
+            </div>
+
+            <div class="mt-chat-scroll" id="chatBox">
+                <div class="mt-msg mt-msg-bot">
+                    Bienvenido al módulo de <strong>Modulación de Programación</strong> de MyndTeks.<br>
+                    Abra un archivo con 📂 o adjunte con ＋. Activa el <strong>ojo 👁</strong> en una pestaña para que la IA lea ese archivo.
+                </div>
+            </div>
+
+            <button class="mt-scroll-btn" id="scrollBottomBtn" onclick="scrollToBottomForce()" title="Ir al final">↓</button>
+
+            <div class="mt-input-wrapper" id="inputWrapper">
+                <div class="mt-attachments" id="attachmentsContainer"></div>
+
+                <div class="mt-input-bar">
+                    <label class="mt-attach-btn" title="Adjuntar archivo (o Ctrl+V)">
+                        <span class="mt-attach-icon">＋</span>
+                        <input type="file" id="fileInput" accept="*/*"
+                               onchange="handleFileSelect(this)" multiple>
+                    </label>
+                    <input type="text" class="mt-text-input" id="userInput"
+                           placeholder="Escribe tu instrucción…"
+                           onkeydown="if(event.key === 'Enter' && !isProcessing) sendMessage()">
+                    <button class="mt-send-btn" id="sendBtn" onclick="sendMessage()" title="Enviar">
+                        <span class="mt-send-icon">➤</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- ---------- COLUMNA DERECHA · EDITOR ---------- -->
+        <div class="mt-editor-col">
+            <div class="mt-editor-head">
+                <div class="mt-panel-title">
+                    <span class="icon">◇</span>
+                    <span>Editor de Código</span>
+                </div>
+                <div class="mt-editor-actions">
+                    <button class="mt-icon-btn" onclick="abrirArchivoDelPC()" title="Abrir archivo del PC">
+                        <span class="mt-ic">📂</span>
+                    </button>
+                    <button class="mt-icon-btn" onclick="nuevoArchivo()" title="Nuevo archivo">
+                        <span class="mt-ic">＋</span>
+                    </button>
+                    <button class="mt-icon-btn" onclick="guardarArchivo()" title="Guardar">
+                        <span class="mt-ic">💾</span>
+                    </button>
+                    <button class="mt-icon-btn" onclick="limpiarEditor()" title="Limpiar contenido">
+                        <span class="mt-ic">🗑</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="mt-editor-stage">
+                <div class="mt-tabs" id="editorTabs">
+                    <span class="mt-tab-empty">Sin archivos abiertos</span>
+                </div>
+                <div class="mt-code-area" id="codeArea">
+                    <div class="mt-line-numbers" id="lineNumbers">1</div>
+                    <textarea class="mt-editor-textarea" id="editorTextarea"
+                              placeholder="// Abre un archivo con 📂 o pide código al asistente…"
+                              oninput="actualizarContenidoEditor()"
+                              onscroll="sincronizarNumerosLinea()"
+                              onkeyup="actualizarEstadoEditor()"
+                              onclick="actualizarEstadoEditor()"
+                              spellcheck="false"></textarea>
+                </div>
+                <div class="mt-statusbar">
+                    <div class="mt-statusbar-left">
+                        <span class="mt-status-item">
+                            <span class="dot"></span>
+                            <span id="editorLanguage">Texto</span>
+                        </span>
+                    </div>
+                    <div class="mt-statusbar-right">
+                        <span id="editorPosition">Ln 1, Col 1</span>
+                        <span>UTF-8</span>
+                        <span>Espacios: 4</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script src="/js/main.js"></script>
+</body>
+</html>
